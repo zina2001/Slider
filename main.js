@@ -6,36 +6,20 @@ const slidesArray = Array.from(slides);
 let currentSlide = 0;
 const lastPositionSlides = slidesArray.length - 1;
 
-
-const next = () => {
-    if (currentSlide !== lastPositionSlides) {
+const changeSlide = (value) => {
     slidesArray[currentSlide].classList.remove('current');
-    currentSlide += 1;
+    if (value === 1 && currentSlide === lastPositionSlides) {
+        currentSlide = 0;
+    } else if (value === -1 && currentSlide === 0) {
+        currentSlide = lastPositionSlides;
+    } else {
+        currentSlide += value;
+    }
     slidesArray[currentSlide].classList.add('current');
-    }
-    else {
-        slidesArray[currentSlide].classList.remove('current');
-        currentSlide = 0
-        slidesArray[currentSlide].classList.add('current');
-    }
 }
 
-const prev = () => {
-   if (currentSlide !== 0) {
-       slidesArray[currentSlide].classList.remove('current');
-       currentSlide -= 1;
-       slidesArray[currentSlide].classList.add('current');
-   } else {
-       slidesArray[currentSlide].classList.remove('current');
-       currentSlide = lastPositionSlides;
-       slidesArray[currentSlide].classList.add('current');
-   }
-
-}
-
-
-arrowRight.addEventListener('click', next);
-arrowLeft.addEventListener('click', prev);
+arrowRight.addEventListener('click', () => changeSlide(1));
+arrowLeft.addEventListener('click', () => changeSlide(-1));
 
 
 
